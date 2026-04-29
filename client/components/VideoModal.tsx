@@ -47,12 +47,9 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoMo
               controls
               controlsList="nodownload"
               playsInline
-              preload="auto"
-              onError={(e) => {
-                console.error('Video error:', e);
-                setError(true);
-              }}
-              onLoadedData={() => console.log('Video loaded successfully')}
+              preload="metadata"
+              autoPlay
+              onError={() => setError(true)}
             />
           )}
         </div>

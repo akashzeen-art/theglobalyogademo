@@ -54,6 +54,7 @@ export default function VideoBackground() {
             muted
             loop
             playsInline
+            preload="none"
             onError={() => setVideoError(true)}
             className="absolute inset-0 w-full h-full object-cover"
           >
