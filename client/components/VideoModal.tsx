@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -8,13 +8,25 @@ interface VideoModalProps {
   title: string;
 }
 
+const isIOS = () =>
+  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+const getOptimizedUrl = (url: string) => {
+  if (!url) return url;
+  return isIOS() ? url.replace('play_480p.mp4', 'play_360p.mp4') : url;
+};
+
 export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoModalProps) {
   const [error, setError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const optimizedUrl = getOptimizedUrl(videoUrl);
 
   useEffect(() => {
     setError(false);
-    if (isOpen && videoUrl) {
-      console.log('VideoModal opened with URL:', videoUrl);
+    if (isOpen && videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {});
     }
   }, [videoUrl, isOpen]);
 
@@ -23,10 +35,7 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoMo
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div className="relative w-full max-w-5xl mx-4" onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={onClose}
-          className="absolute -top-12 right-0 text-white hover:text-purple-500 transition-colors"
-        >
+        <button onClick={onClose} className="absolute -top-12 right-0 text-white hover:text-purple-500 transition-colors">
           <X className="w-8 h-8" />
         </button>
         <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
@@ -40,17 +49,19 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoMo
             </div>
           ) : (
             <video
-              key={videoUrl}
-              src={videoUrl}
-              title={title}
+              ref={videoRef}
+              key={optimizedUrl}
               className="w-full h-full"
               controls
               playsInline
-              x-webkit-airplay="allow"
-              preload="metadata"
               autoPlay
+              preload="auto"
+              webkit-playsinline="true"
+              x-webkit-airplay="allow"
               onError={() => setError(true)}
-            />
+            >
+              <source src={optimizedUrl} type="video/mp4" />
+            </video>
           )}
         </div>
       </div>
