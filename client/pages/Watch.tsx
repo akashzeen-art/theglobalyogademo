@@ -81,11 +81,11 @@ export default function Watch() {
 
   return (
     <div className="fixed inset-0 bg-black" style={{ zIndex: 50 }}>
-      {/* Close button — hidden during fullscreen so it doesn't block controls */}
+      {/* Close button — above video z-index */}
       {!isFullscreen && (
         <button
           className="absolute top-4 right-4 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
-          style={{ zIndex: 51 }}
+          style={{ zIndex: 60 }}
           onClick={handleClose}
         >
           <X className="w-6 h-6 text-white" />
