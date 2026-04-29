@@ -99,7 +99,7 @@ export default function Watch() {
         </div>
       )}
 
-      {/* Video — positioned to fill screen with no overlapping containers */}
+      {/* Video — full screen, highest z-index so nothing blocks its controls */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-contain"
@@ -109,7 +109,7 @@ export default function Watch() {
         preload="auto"
         webkit-playsinline="true"
         x-webkit-airplay="allow"
-        style={{ zIndex: 50 }}
+        style={{ zIndex: 55 }}
         onLoadStart={() => setIsLoading(true)}
         onCanPlay={() => setIsLoading(false)}
         onError={() => { setIsLoading(false); setError(true); }}
@@ -123,11 +123,11 @@ export default function Watch() {
         </div>
       )}
 
-      {/* Title overlay — only show when not fullscreen */}
+      {/* Title overlay — only show when not fullscreen, pointer-events-none so controls underneath still work */}
       {!isFullscreen && (videoTitle || videoDescription) && (
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6" style={{ zIndex: 51 }}>
-          {videoTitle && <h3 className="text-white text-2xl font-bold mb-2">{videoTitle}</h3>}
-          {videoDescription && <p className="text-white/80">{videoDescription}</p>}
+        <div className="absolute top-16 left-0 right-0 p-4 pointer-events-none" style={{ zIndex: 51 }}>
+          {videoTitle && <h3 className="text-white text-lg font-bold">{videoTitle}</h3>}
+          {videoDescription && <p className="text-white/80 text-sm">{videoDescription}</p>}
         </div>
       )}
     </div>
