@@ -128,6 +128,7 @@ export default function VideoPreloader({ isExiting = false, onLogoTransition, is
               src="/logo.png"
               alt="TheYogaStudio"
               className="w-32 h-32 object-contain drop-shadow-2xl"
+              style={{ filter: "brightness(0) invert(1)" }}
             />
           </div>
 
