@@ -107,7 +107,7 @@ export default function VideoPreloader({ isExiting = false, onLogoTransition, is
           >
             <source
               src={isMobile 
-                ? "https://vz-32907a33-0f1.b-cdn.net/316cbe69-b0e3-4bfe-a111-95d7cbf6a77d/play_480p.mp4"
+                ? "https://vz-32907a33-0f1.b-cdn.net/316cbe69-b0e3-4bfe-a111-95d7cbf6a77d/play_360p.mp4"
                 : "https://vz-32907a33-0f1.b-cdn.net/316cbe69-b0e3-4bfe-a111-95d7cbf6a77d/play_480p.mp4"
               }
               type="video/mp4"

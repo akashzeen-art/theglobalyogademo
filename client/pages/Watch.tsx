@@ -139,8 +139,8 @@ export default function Watch() {
             ref={videoRef}
             className="w-full h-full object-contain"
             controls
-            controlsList="nodownload noremoteplayback"
-            disablePictureInPicture
+            playsInline
+            x-webkit-airplay="allow"
             onPlay={handlePlay}
             onPause={handlePause}
             onEnded={() => setIsPlaying(false)}
@@ -148,7 +148,6 @@ export default function Watch() {
             onCanPlay={() => setIsLoading(false)}
             preload="metadata"
           >
-            <source src={videoUrl} type="video/webm" />
             <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

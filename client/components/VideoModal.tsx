@@ -45,8 +45,8 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoMo
               title={title}
               className="w-full h-full"
               controls
-              controlsList="nodownload"
               playsInline
+              x-webkit-airplay="allow"
               preload="metadata"
               autoPlay
               onError={() => setError(true)}
